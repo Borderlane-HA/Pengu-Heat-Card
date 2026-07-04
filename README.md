@@ -13,7 +13,7 @@ Repository: `https://github.com/Borderlane-HA/Pengu-Heat-Card`
 ![Solar thermal example](screenshots/screen4.png)
 
 ---
-
+ 
 ## Supported use cases
 
 Pengu Heat Card is useful for heating systems and controllers such as:
