@@ -1,4 +1,4 @@
-const PENGU_HEAT_VERSION = "1.3.0";
+const PENGU_HEAT_VERSION = "1.3.1";
 
 const PENGU_HEAT_TRANSLATIONS = {
   en: {
@@ -186,7 +186,7 @@ function styleMap(extra = "") {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       gap: 12px;
     }
     .card-title {
@@ -328,10 +328,10 @@ function styleMap(extra = "") {
     }
     .pipe-active { opacity: 1; }
     .pipe-inactive { opacity: 0.3; stroke: #cbd5e1 !important; }
-    .pipe-animate { stroke-dasharray: 12 12; animation: phcFlow 1.9s linear infinite; }
-    .pipe-red.pipe-active { filter: drop-shadow(0 0 2px rgba(239, 68, 68, 0.25)); }
-    .pipe-blue.pipe-active { filter: drop-shadow(0 0 2px rgba(59, 130, 246, 0.22)); }
-    @keyframes phcFlow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -48; } }
+    .pipe-animate { stroke-dasharray: 6 14; animation: phcFlow 3.6s linear infinite; }
+    .pipe-red.pipe-active { filter: none; }
+    .pipe-blue.pipe-active { filter: none; }
+    @keyframes phcFlow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -28; } }
     ${extra}
   `;
 }
@@ -474,12 +474,6 @@ function commonSymbols() {
         <stop offset="0%" stop-color="#1e40af"/>
         <stop offset="100%" stop-color="#2563eb"/>
       </linearGradient>
-      <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-        <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444"/>
-      </marker>
-      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-        <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6"/>
-      </marker>
       <filter id="shadowSoft" x="-20%" y="-20%" width="140%" height="140%">
         <feDropShadow dx="0" dy="2" stdDeviation="3.2" flood-color="#0f172a" flood-opacity="0.14"/>
       </filter>
@@ -558,9 +552,9 @@ function renderSolarDiagram(hass, config, language) {
 
       <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="9">
         <path d="M 460 388 L 460 230 L 548 230 L 700 230" class="${redPipe}"/>
-        <path d="M 700 230 L 700 360" class="${redPipe}" marker-end="url(#arrowRed)"/>
-        <path d="M 700 500 L 524 500 L 460 500 L 460 542" class="${bluePipe}" marker-end="url(#arrowBlue)"/>
-        <path d="M 460 230 L 420 230 L 420 170 L 420 150" class="${redPipe}" marker-end="url(#arrowRed)"/>
+        <path d="M 700 230 L 700 360" class="${redPipe}"/>
+        <path d="M 700 500 L 524 500 L 460 500 L 460 542" class="${bluePipe}"/>
+        <path d="M 460 230 L 420 230 L 420 170 L 420 150" class="${redPipe}"/>
       </g>
 
       <g>
@@ -706,9 +700,9 @@ function renderHeatingDiagram(hass, config, language) {
       </g>
       <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
         <path d="M 170 360 L 470 360" class="${redPipe}"/>
-        <path d="M 540 360 L 770 360" class="${redPipe}" marker-end="url(#arrowRed)"/>
+        <path d="M 540 360 L 770 360" class="${redPipe}"/>
         <path d="M 935 494 L 935 584 L 190 584" class="${bluePipe}"/>
-        <path d="M 190 584 L 170 584" class="${bluePipe}" marker-end="url(#arrowBlue)"/>
+        <path d="M 190 584 L 170 584" class="${bluePipe}"/>
       </g>
       <g>
         <circle cx="770" cy="360" r="9" fill="#dbeafe" stroke="#64748b" stroke-width="3"/>
@@ -782,9 +776,9 @@ function renderHotWaterDiagram(hass, config, language) {
         <polygon points="-8,-16 14,0 -8,16" fill="#475569"/>
       </g>
       <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
-        <path d="M 380 176 L 650 176 L 650 132" class="${redPipe}" marker-end="url(#arrowRed)"/>
-        <path d="M 380 300 L 650 300 L 650 360" class="${redPipe}" marker-end="url(#arrowRed)"/>
-        <path d="M 650 416 L 650 560 L 380 560" class="${bluePipe}" marker-end="url(#arrowBlue)"/>
+        <path d="M 380 176 L 650 176 L 650 132" class="${redPipe}"/>
+        <path d="M 380 300 L 650 300 L 650 360" class="${redPipe}"/>
+        <path d="M 650 416 L 650 560 L 380 560" class="${bluePipe}"/>
       </g>
       <g>
         <circle cx="380" cy="176" r="9" fill="#dbeafe" stroke="#64748b" stroke-width="3"/>
@@ -840,8 +834,8 @@ function renderHeatSourceOnlyDiagram(hass, config, language) {
         <path d="M54 158h62" stroke="#3b82f6" stroke-width="8" stroke-linecap="round"/>
       </g>
       <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
-        <path d="M 220 360 L 720 360" class="${redPipe}" marker-end="url(#arrowRed)"/>
-        <path d="M 720 520 L 210 520" class="${bluePipe}" marker-end="url(#arrowBlue)"/>
+        <path d="M 220 360 L 720 360" class="${redPipe}"/>
+        <path d="M 720 520 L 210 520" class="${bluePipe}"/>
       </g>
       <g>
         <circle cx="720" cy="360" r="9" fill="#dbeafe" stroke="#64748b" stroke-width="3"/>
@@ -940,7 +934,6 @@ class PenguHeatCard extends HTMLElement {
           <div class="card-header">
             <div>
               <div class="card-title">${title}</div>
-              <div class="card-subtitle">${diagramName}</div>
             </div>
           </div>
           <div class="diagram-shell">

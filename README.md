@@ -329,3 +329,7 @@ This release makes the value badges smaller and cleaner, with a more compact vis
 ## v1.3.0 Visual Refresh
 
 This release refreshes the overall UI with cleaner badges, more polished pipe animations and a redesigned solar thermal schematic.
+
+## v1.3.1 UI Cleanup
+
+This release removes the fixed schema subtitle from the card header and replaces arrow-style flow indicators with cleaner plain pipes and more subtle animations.
