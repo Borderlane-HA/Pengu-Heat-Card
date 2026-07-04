@@ -333,3 +333,7 @@ This release refreshes the overall UI with cleaner badges, more polished pipe an
 ## v1.3.1 UI Cleanup
 
 This release removes the fixed schema subtitle from the card header and replaces arrow-style flow indicators with cleaner plain pipes and more subtle animations.
+
+## v1.4.0 Label Positioning
+
+Unselected entities are now hidden from the card instead of showing “Not configured”. The GUI editor includes a **Label positions** panel where labels can be moved via drag and drop. The positions are saved as percentage values in the card configuration.

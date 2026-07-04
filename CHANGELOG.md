@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.4.0
+
+- Empty/unselected entities are now hidden completely instead of showing “Not configured”.
+- Added drag-and-drop label position editing in the GUI editor.
+- Saved label positions are stored in the card configuration as percentage values.
+- Applied the hide-empty behavior across all four diagrams.
+
 ## v1.3.1
 
 - Removed the fixed schema subtitle from the visible card header.

@@ -1,4 +1,4 @@
-const PENGU_HEAT_VERSION = "1.3.1";
+const PENGU_HEAT_VERSION = "1.4.0";
 
 const PENGU_HEAT_TRANSLATIONS = {
   en: {
@@ -16,6 +16,8 @@ const PENGU_HEAT_TRANSLATIONS = {
     layout: "Layout",
     appearance: "Appearance",
     custom_labels: "Custom labels",
+    label_positions: "Label positions",
+    drag_labels_hint: "Drag the labels to adjust their position in the card preview.",
     animate_flow: "Animate active flow lines",
     animate_status: "Animate active status badges",
     heat_source_only: "Standalone heat source",
@@ -81,6 +83,8 @@ const PENGU_HEAT_TRANSLATIONS = {
     layout: "Ansicht",
     appearance: "Darstellung",
     custom_labels: "Eigene Labels",
+    label_positions: "Label-Positionen",
+    drag_labels_hint: "Labels per Drag & Drop verschieben, um die Position in der Karte anzupassen.",
     animate_flow: "Aktive Flusslinien animieren",
     animate_status: "Aktive Statusfelder animieren",
     heat_source_only: "Wärmeerzeuger separat",
@@ -450,6 +454,27 @@ function labelHtml(show, text, left, top, width) {
   return `<div class="equipment-label" style="${style}">${text}</div>`;
 }
 
+function getPosition(config, key, defaultLeft, defaultTop, defaultWidth) {
+  const x = Number(config?.[`${key}_x`]);
+  const y = Number(config?.[`${key}_y`]);
+  const w = Number(config?.[`${key}_w`]);
+  return {
+    left: Number.isFinite(x) ? `${x}%` : defaultLeft,
+    top: Number.isFinite(y) ? `${y}%` : defaultTop,
+    width: Number.isFinite(w) ? `${w}%` : defaultWidth,
+  };
+}
+
+function positionedPillHtml(config, positionKey, entityId, defaults, options) {
+  if (!entityId) return "";
+  const position = getPosition(config, positionKey, defaults.left, defaults.top, defaults.width);
+  return pillHtml({ ...options, ...position });
+}
+
+function optionalLabelHtml(show, entityId, text, left, top, width) {
+  return entityId ? labelHtml(show, text, left, top, width) : "";
+}
+
 function commonSymbols() {
   return `
     <defs>
@@ -565,12 +590,12 @@ function renderSolarDiagram(hass, config, language) {
   `;
 
   const overlay = `
-    ${pillHtml({ left: "56%", top: "16%", width: "19%", label: collectorLabel, value: collector, tone: getTemperatureTone(hass, config.collector_entity) })}
-    ${pillHtml({ left: "77%", top: "16%", width: "20%", label: storageLabel, value: storage, tone: getTemperatureTone(hass, config.storage_entity) })}
-    ${pillHtml({ left: "46%", top: "77%", width: "18%", label: pumpLabel, value: pump, tone: pumpActive ? "green" : "gray", valueClass: getStatusClass(pumpActive, animateStatus, "demand") })}
-    ${labelHtml(showLabels, collectorLabel, "22%", "34%", "18%")}
-    ${labelHtml(showLabels, pumpLabel, "47%", "66%", "18%")}
-    ${labelHtml(showLabels, storageLabel, "79%", "70%", "18%")}
+    ${positionedPillHtml(config, "label_collector", config.collector_entity, { left: "56%", top: "16%", width: "19%" }, { label: collectorLabel, value: collector, tone: getTemperatureTone(hass, config.collector_entity) })}
+    ${positionedPillHtml(config, "label_solar_storage", config.storage_entity, { left: "77%", top: "16%", width: "20%" }, { label: storageLabel, value: storage, tone: getTemperatureTone(hass, config.storage_entity) })}
+    ${positionedPillHtml(config, "label_solar_pump", config.pump_entity, { left: "46%", top: "77%", width: "18%" }, { label: pumpLabel, value: pump, tone: pumpActive ? "green" : "gray", valueClass: getStatusClass(pumpActive, animateStatus, "demand") })}
+    ${optionalLabelHtml(showLabels, config.collector_entity, collectorLabel, "22%", "34%", "18%")}
+    ${optionalLabelHtml(showLabels, config.pump_entity, pumpLabel, "47%", "66%", "18%")}
+    ${optionalLabelHtml(showLabels, config.storage_entity, storageLabel, "79%", "70%", "18%")}
     ${!hasData ? `<div class="empty-note">${localize(language, "preview_note")}</div>` : ""}
   `;
 
@@ -712,14 +737,14 @@ function renderHeatingDiagram(hass, config, language) {
   `;
 
   const overlay = `
-    ${pillHtml({ left: "25%", top: "15%", label: outsideLabel, value: outside, tone: getTemperatureTone(hass, config.outside_entity) })}
-    ${pillHtml({ left: "78%", top: "18%", label: flowLabel, value: flow, tone: getTemperatureTone(hass, config.flow_entity) })}
-    ${pillHtml({ left: "51%", top: "62%", width: "28%", label: pumpLabel, value: pump, tone: pumpActive ? "green" : "gray", valueClass: getStatusClass(pumpActive, animateStatus, "demand") })}
-    ${pillHtml({ left: "22%", top: "84%", width: "28%", label: heatSourceLabel, value: sourceStatus, tone: sourceActive ? "green" : "orange", valueClass: getStatusClass(sourceActive, animateStatus) })}
-    ${pillHtml({ left: "78%", top: "84%", width: "24%", label: serviceLabel, value: service, tone: serviceActive ? "yellow" : "green", valueClass: getStatusClass(serviceActive, animateStatus, "warning") })}
-    ${labelHtml(showLabels, heatSourceLabel, "19%", "74%", "26%")}
-    ${labelHtml(showLabels, pumpLabel, "51%", "53%", "20%")}
-    ${labelHtml(showLabels, flowLabel, "82%", "39%", "20%")}
+    ${positionedPillHtml(config, "label_outdoor", config.outside_entity, { left: "25%", top: "15%", width: undefined }, { label: outsideLabel, value: outside, tone: getTemperatureTone(hass, config.outside_entity) })}
+    ${positionedPillHtml(config, "label_heating_flow", config.flow_entity, { left: "78%", top: "18%", width: undefined }, { label: flowLabel, value: flow, tone: getTemperatureTone(hass, config.flow_entity) })}
+    ${positionedPillHtml(config, "label_heating_pump", config.pump_entity, { left: "51%", top: "62%", width: "28%" }, { label: pumpLabel, value: pump, tone: pumpActive ? "green" : "gray", valueClass: getStatusClass(pumpActive, animateStatus, "demand") })}
+    ${positionedPillHtml(config, "label_heat_source", config.burner_entity, { left: "22%", top: "84%", width: "28%" }, { label: heatSourceLabel, value: sourceStatus, tone: sourceActive ? "green" : "orange", valueClass: getStatusClass(sourceActive, animateStatus) })}
+    ${positionedPillHtml(config, "label_service", config.service_entity, { left: "78%", top: "84%", width: "24%" }, { label: serviceLabel, value: service, tone: serviceActive ? "yellow" : "green", valueClass: getStatusClass(serviceActive, animateStatus, "warning") })}
+    ${optionalLabelHtml(showLabels, config.burner_entity, heatSourceLabel, "19%", "74%", "26%")}
+    ${optionalLabelHtml(showLabels, config.pump_entity, pumpLabel, "51%", "53%", "20%")}
+    ${optionalLabelHtml(showLabels, config.flow_entity, flowLabel, "82%", "39%", "20%")}
     ${!hasData ? `<div class="empty-note">${localize(language, "preview_note")}</div>` : ""}
   `;
 
@@ -789,14 +814,14 @@ function renderHotWaterDiagram(hass, config, language) {
   `;
 
   const overlay = `
-    ${pillHtml({ left: "30%", top: "14%", label: hotWaterLabel, value: hotWater, tone: getTemperatureTone(hass, config.hot_water_entity) })}
-    ${pillHtml({ left: "74%", top: "14%", width: "28%", label: demandLabel, value: demand, tone: demandActive ? "orange" : "gray", valueClass: getStatusClass(demandActive, animateStatus, "demand") })}
-    ${pillHtml({ left: "66%", top: "44%", width: "30%", label: pumpLabel, value: circulationPump, tone: circulationActive ? "green" : "gray", valueClass: getStatusClass(circulationActive, animateStatus, "demand") })}
-    ${pillHtml({ left: "30%", top: "68%", label: bufferLabel, value: buffer, tone: getTemperatureTone(hass, config.buffer_entity) })}
-    ${pillHtml({ left: "66%", top: "70%", width: "28%", label: returnLabel, value: returnTemp, tone: getTemperatureTone(hass, config.return_entity) })}
-    ${labelHtml(showLabels, hotWaterLabel, "22%", "40%", "22%")}
-    ${labelHtml(showLabels, pumpLabel, "70%", "58%", "24%")}
-    ${labelHtml(showLabels, returnLabel, "72%", "78%", "24%")}
+    ${positionedPillHtml(config, "label_hot_water_temp", config.hot_water_entity, { left: "30%", top: "14%", width: undefined }, { label: hotWaterLabel, value: hotWater, tone: getTemperatureTone(hass, config.hot_water_entity) })}
+    ${positionedPillHtml(config, "label_demand", config.demand_entity, { left: "74%", top: "14%", width: "28%" }, { label: demandLabel, value: demand, tone: demandActive ? "orange" : "gray", valueClass: getStatusClass(demandActive, animateStatus, "demand") })}
+    ${positionedPillHtml(config, "label_circulation_pump", config.circulation_pump_entity, { left: "66%", top: "44%", width: "30%" }, { label: pumpLabel, value: circulationPump, tone: circulationActive ? "green" : "gray", valueClass: getStatusClass(circulationActive, animateStatus, "demand") })}
+    ${positionedPillHtml(config, "label_buffer", config.buffer_entity, { left: "30%", top: "68%", width: undefined }, { label: bufferLabel, value: buffer, tone: getTemperatureTone(hass, config.buffer_entity) })}
+    ${positionedPillHtml(config, "label_circulation_return", config.return_entity, { left: "66%", top: "70%", width: "28%" }, { label: returnLabel, value: returnTemp, tone: getTemperatureTone(hass, config.return_entity) })}
+    ${optionalLabelHtml(showLabels, config.hot_water_entity, hotWaterLabel, "22%", "40%", "22%")}
+    ${optionalLabelHtml(showLabels, config.circulation_pump_entity, pumpLabel, "70%", "58%", "24%")}
+    ${optionalLabelHtml(showLabels, config.return_entity, returnLabel, "72%", "78%", "24%")}
     ${!hasData ? `<div class="empty-note">${localize(language, "preview_note")}</div>` : ""}
   `;
 
@@ -845,13 +870,13 @@ function renderHeatSourceOnlyDiagram(hass, config, language) {
   `;
 
   const overlay = `
-    ${pillHtml({ left: "25%", top: "18%", width: "28%", label: sourceLabel, value: sourceStatus, tone: sourceActive ? "green" : "orange", valueClass: getStatusClass(sourceActive, animateStatus) })}
-    ${pillHtml({ left: "78%", top: "18%", label: flowLabel, value: flow, tone: getTemperatureTone(hass, config.flow_entity) })}
-    ${pillHtml({ left: "78%", top: "74%", label: returnLabel, value: ret, tone: getTemperatureTone(hass, config.return_entity) })}
-    ${pillHtml({ left: "50%", top: "84%", width: "24%", label: serviceLabel, value: service, tone: serviceActive ? "yellow" : "green", valueClass: getStatusClass(serviceActive, animateStatus, "warning") })}
-    ${labelHtml(showLabels, sourceLabel, "20%", "74%", "26%")}
-    ${labelHtml(showLabels, flowLabel, "82%", "40%", "20%")}
-    ${labelHtml(showLabels, returnLabel, "82%", "74%", "20%")}
+    ${positionedPillHtml(config, "label_heat_source", config.burner_entity, { left: "25%", top: "18%", width: "28%" }, { label: sourceLabel, value: sourceStatus, tone: sourceActive ? "green" : "orange", valueClass: getStatusClass(sourceActive, animateStatus) })}
+    ${positionedPillHtml(config, "label_heating_flow", config.flow_entity, { left: "78%", top: "18%", width: undefined }, { label: flowLabel, value: flow, tone: getTemperatureTone(hass, config.flow_entity) })}
+    ${positionedPillHtml(config, "label_return_flow", config.return_entity, { left: "78%", top: "74%", width: undefined }, { label: returnLabel, value: ret, tone: getTemperatureTone(hass, config.return_entity) })}
+    ${positionedPillHtml(config, "label_service", config.service_entity, { left: "50%", top: "84%", width: "24%" }, { label: serviceLabel, value: service, tone: serviceActive ? "yellow" : "green", valueClass: getStatusClass(serviceActive, animateStatus, "warning") })}
+    ${optionalLabelHtml(showLabels, config.burner_entity, sourceLabel, "20%", "74%", "26%")}
+    ${optionalLabelHtml(showLabels, config.flow_entity, flowLabel, "82%", "40%", "20%")}
+    ${optionalLabelHtml(showLabels, config.return_entity, returnLabel, "82%", "74%", "20%")}
     ${!hasData ? `<div class="empty-note">${localize(language, "preview_note")}</div>` : ""}
   `;
 
@@ -1060,11 +1085,51 @@ class PenguHeatCardEditor extends HTMLElement {
     };
   }
 
+  _positionDef(language) {
+    return {
+      solar_thermal: [
+        ["label_collector", localize(language, "collector"), 56, 16],
+        ["label_solar_storage", localize(language, "solar_storage"), 77, 16],
+        ["label_solar_pump", localize(language, "solar_pump"), 46, 77],
+      ],
+      heating_circuit: [
+        ["label_outdoor", localize(language, "outdoor"), 25, 15],
+        ["label_heating_flow", localize(language, "heating_flow"), 78, 18],
+        ["label_heating_pump", localize(language, "heating_pump"), 51, 62],
+        ["label_heat_source", localize(language, "heat_source"), 22, 84],
+        ["label_service", localize(language, "service"), 78, 84],
+      ],
+      hot_water: [
+        ["label_hot_water_temp", localize(language, "hot_water_temp"), 30, 14],
+        ["label_demand", localize(language, "demand"), 74, 14],
+        ["label_circulation_pump", localize(language, "circulation_pump"), 66, 44],
+        ["label_buffer", localize(language, "buffer"), 30, 68],
+        ["label_circulation_return", localize(language, "circulation_return"), 66, 70],
+      ],
+      heat_source_only: [
+        ["label_heat_source", localize(language, "heat_source"), 25, 18],
+        ["label_heating_flow", localize(language, "heating_flow"), 78, 18],
+        ["label_return_flow", localize(language, "return_flow"), 78, 74],
+        ["label_service", localize(language, "service"), 50, 84],
+      ],
+    };
+  }
+
+  _positionValue(key, axis, fallback) {
+    const numeric = Number(this._config?.[`${key}_${axis}`]);
+    return Number.isFinite(numeric) ? Math.max(3, Math.min(97, numeric)) : fallback;
+  }
+
+  _positionLabel(key, fallback) {
+    return this._config?.[key] || fallback;
+  }
+
   _render() {
     if (!this.shadowRoot) return;
     const language = resolveLanguage(this._hass, this._config);
     const fields = this._fieldDef(language)[this._config.diagram || "solar_thermal"];
     const labelFields = this._labelDef(language)[this._config.diagram || "solar_thermal"];
+    const positionFields = this._positionDef(language)[this._config.diagram || "solar_thermal"];
     const heatSourceControls =
       ["heating_circuit", "heat_source_only"].includes(this._config.diagram)
         ? `
@@ -1140,6 +1205,42 @@ class PenguHeatCardEditor extends HTMLElement {
           color: var(--secondary-text-color, #64748b);
           margin-top: 4px;
         }
+        .position-canvas {
+          position: relative;
+          height: 190px;
+          border-radius: 16px;
+          border: 1px dashed rgba(148, 163, 184, 0.55);
+          background:
+            linear-gradient(90deg, rgba(148,163,184,0.08) 1px, transparent 1px),
+            linear-gradient(180deg, rgba(148,163,184,0.08) 1px, transparent 1px),
+            rgba(248, 250, 252, 0.55);
+          background-size: 10% 10%;
+          overflow: hidden;
+          margin-top: 6px;
+          touch-action: none;
+        }
+        .drag-chip {
+          position: absolute;
+          transform: translate(-50%, -50%);
+          border-radius: 999px;
+          border: 1px solid rgba(148, 163, 184, 0.45);
+          background: var(--card-background-color, #fff);
+          color: var(--primary-text-color, #111827);
+          box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08);
+          padding: 6px 10px;
+          font-size: 0.74rem;
+          font-weight: 700;
+          cursor: grab;
+          user-select: none;
+          max-width: 140px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .drag-chip:active {
+          cursor: grabbing;
+          box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+        }
       </style>
       <div class="editor">
         <div class="panel">
@@ -1213,11 +1314,59 @@ class PenguHeatCardEditor extends HTMLElement {
             `).join("")}
           </div>
         </div>
+        <div class="panel">
+          <div class="panel-title">${localize(language, "label_positions")}</div>
+          <div class="position-canvas">
+            ${positionFields.map(([key, label, x, y]) => `
+              <div class="drag-chip" data-position-key="${key}" style="left:${this._positionValue(key, "x", x)}%; top:${this._positionValue(key, "y", y)}%;">
+                ${this._positionLabel(key, label)}
+              </div>
+            `).join("")}
+          </div>
+          <div class="hint">${localize(language, "drag_labels_hint")}</div>
+        </div>
       </div>
     `;
 
     this._bindEditorEvents();
+    this._bindPositionDrag();
     this._assignHassToPickers();
+  }
+
+  _bindPositionDrag() {
+    this.shadowRoot.querySelectorAll(".drag-chip").forEach((chip) => {
+      chip.addEventListener("pointerdown", (ev) => {
+        ev.preventDefault();
+        const key = chip.dataset.positionKey;
+        const canvas = chip.closest(".position-canvas");
+        if (!key || !canvas) return;
+
+        const moveChip = (event) => {
+          const rect = canvas.getBoundingClientRect();
+          const x = Math.max(3, Math.min(97, ((event.clientX - rect.left) / rect.width) * 100));
+          const y = Math.max(3, Math.min(97, ((event.clientY - rect.top) / rect.height) * 100));
+          chip.style.left = `${x}%`;
+          chip.style.top = `${y}%`;
+          chip.dataset.x = `${x.toFixed(1)}`;
+          chip.dataset.y = `${y.toFixed(1)}`;
+        };
+
+        const stopDrag = (event) => {
+          moveChip(event);
+          chip.releasePointerCapture?.(event.pointerId);
+          chip.removeEventListener("pointermove", moveChip);
+          chip.removeEventListener("pointerup", stopDrag);
+          chip.removeEventListener("pointercancel", stopDrag);
+          this._updateConfigValue(`${key}_x`, Number(chip.dataset.x));
+          this._updateConfigValue(`${key}_y`, Number(chip.dataset.y));
+        };
+
+        chip.setPointerCapture?.(ev.pointerId);
+        chip.addEventListener("pointermove", moveChip);
+        chip.addEventListener("pointerup", stopDrag);
+        chip.addEventListener("pointercancel", stopDrag);
+      });
+    });
   }
 
   _assignHassToPickers() {
