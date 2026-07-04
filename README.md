@@ -10,6 +10,8 @@ Repository: `https://github.com/Borderlane-HA/Pengu-Heat-Card`
 
 > Note for HACS: use the repository URL without `/tree/main`.
 
+![Solar thermal example](screenshots/screen4.png)
+
 ---
 
 ## Supported use cases
