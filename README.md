@@ -105,6 +105,14 @@ Die Konfiguration erfolgt über den **grafischen Karten-Editor**. YAML ist für 
 
 ---
 
+## Screenshots
+
+| Screenshot | Area |
+| --- | --- |
+| ![1](screenshots/screen1.png)` |
+| ![2](screenshots/screen2.png)` |
+| ![3](screenshots/screen3.png)` |
+
 ## Add the card
 
 After installation, open a dashboard and choose:
