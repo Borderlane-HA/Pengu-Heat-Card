@@ -105,7 +105,7 @@ Die Konfiguration erfolgt über den **grafischen Karten-Editor**. YAML ist für 
 
 ---
 
-## Screenshots
+### Screenshots
 
 | Screenshot | Area |
 | --- | --- |
