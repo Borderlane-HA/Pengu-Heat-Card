@@ -2,70 +2,106 @@
 
 ![Pengu Heat Card](./assets/pengu-logo.svg)
 
-**Pengu Heat Card** is a Home Assistant custom card for heating diagrams that can be configured **fully through the GUI**.
+A stylish visual heat card for **Home Assistant** dashboards.
 
-Version **1.2.0** adds more status colors, optional animations, freely configurable labels and a standalone heat-source / burner schema.
+Pengu Heat Card provides animated heating schematics for **solar thermal systems**, **heating circuits**, **domestic hot water** and **standalone heat sources**. It is designed for installations using **Technische Alternative CMI / TA C.M.I.**, **eBUS**, **Modbus**, **MQTT**, **ESPHome**, REST sensors or any other heating controller that exposes entities to Home Assistant.
 
-It is designed for installations such as:
+Repository: `https://github.com/Borderlane-HA/Pengu-Heat-Card`
 
-- **Solar thermal**
-- **Heating circuit / floor heating / radiator heating** with selectable heat source: gas boiler, heat pump, pellet boiler or district heating
-- **Domestic hot water / circulation**
+> Note for HACS: use the repository URL without `/tree/main`.
 
-The card is intentionally visual and inspired by heating controller schematics, so you can map your entities onto a clear flow diagram.
+---
+
+## Supported use cases
+
+Pengu Heat Card is useful for heating systems and controllers such as:
+
+- **Technische Alternative CMI / TA C.M.I.**
+- **UVR16x2 / UVR610 / CAN-EZ / CAN-MTx** style installations exposed through CMI sensors
+- **Solar thermal collectors**
+- **Buffer tanks / thermal storage**
+- **Domestic hot water storage**
+- **Circulation pumps**
+- **Gas boilers**
+- **Heat pumps**
+- **Pellet boilers**
+- **District heating / Fernwärme**
+- **eBUS based heating systems**
+- **Modbus based heating controllers**
+- **MQTT / ESPHome / template sensor based integrations**
+
+The card does not require a specific integration. If your heating controller provides sensors, binary sensors or switches in Home Assistant, you can map them to the card through the graphical editor.
+
+---
 
 ## Highlights
 
-- ✅ **Shows up in “Add card”** via `window.customCards`
-- ✅ **Full GUI editor** (not YAML-only)
-- ✅ **German and English** UI labels
-- ✅ Selectable heating source for the heating circuit: gas, heat pump, pellet boiler, district heating
-- ✅ 4 built-in layouts:
+- ✅ Appears in **Add card** as **Pengu Heat Card**
+- ✅ Full **GUI editor** — not YAML-only
+- ✅ German and English labels
+- ✅ Designed for TA CMI and other heating controller dashboards
+- ✅ 4 built-in diagram types:
   - Solar thermal
   - Heating circuit
   - Domestic hot water
   - Standalone heat source / burner
-- ✅ Works with sensors, binary sensors, switches and similar state entities
-- ✅ Stylish inline SVG illustrations included directly in the card
-- ✅ More status colors and optional animations
-- ✅ Freely configurable labels
+- ✅ Selectable heat source:
+  - Gas boiler
+  - Heat pump
+  - Pellet boiler
+  - District heating
+- ✅ Works with sensors, binary sensors, switches and similar Home Assistant entities
+- ✅ More status colors for temperatures and states
+- ✅ Optional animations for active flow lines and active status badges
+- ✅ Freely configurable labels for each diagram
 - ✅ HACS-compatible repository structure
 
 ---
 
-## German quick summary
+## Deutsche Kurzbeschreibung
 
-Die Karte taucht in Home Assistant direkt im **Karten-Dialog** auf und kann komplett über den **grafischen Editor** konfiguriert werden. Es gibt drei Schemata: **Solarthermie**, **Heizkreis** und **Warmwasser**. Die Beschriftung kann auf **Deutsch**, **Englisch** oder **Automatisch** gestellt werden.
+**Pengu Heat Card** ist eine visuelle Home Assistant Karte für Heizungsanlagen, Solarthermie, Warmwasser und Wärmeerzeuger.
+
+Die Karte eignet sich besonders für Anlagen mit **Technische Alternative CMI / TA C.M.I.**, aber auch für andere Heizungssteuerungen, die über **eBUS**, **Modbus**, **MQTT**, **ESPHome**, REST oder Template-Sensoren in Home Assistant eingebunden sind.
+
+Die Konfiguration erfolgt über den **grafischen Karten-Editor**. YAML ist für die normale Nutzung nicht nötig.
 
 ---
 
 ## Installation
 
-### Option 1: HACS (recommended)
+### HACS custom repository
 
-1. Open **HACS**.
-2. Go to **Custom repositories**.
-3. Add your GitHub repository URL.
-4. Category: **Dashboard**.
-5. Install **Pengu Heat Card**.
-6. Reload the browser or Home Assistant frontend.
+1. Open **HACS** in Home Assistant.
+2. Open the three-dot menu.
+3. Select **Custom repositories**.
+4. Add this repository URL:
 
-### Option 2: Manual install
-
-1. Copy `pengu-heat-card.js` to:
-
+   ```text
+   https://github.com/Borderlane-HA/Pengu-Heat-Card
    ```
+
+5. Category: **Dashboard**.
+6. Install **Pengu Heat Card**.
+7. Reload the browser or restart the Home Assistant frontend if the card does not appear immediately.
+
+### Manual installation
+
+1. Download `pengu-heat-card.js` from this repository.
+2. Copy it to:
+
+   ```text
    /config/www/pengu-heat-card.js
    ```
 
-2. Add the resource in Home Assistant:
+3. Add the resource in Home Assistant:
 
    ```yaml
    url: /local/pengu-heat-card.js
    type: module
    ```
 
-3. Open your dashboard and add the card.
+4. Open your dashboard and add **Pengu Heat Card**.
 
 ---
 
@@ -75,7 +111,7 @@ After installation, open a dashboard and choose:
 
 **Add card → Pengu Heat Card**
 
-Then select one of the four diagrams in the GUI editor:
+Then select one of the four diagram types in the GUI editor:
 
 - **Solar thermal**
 - **Heating circuit**
@@ -88,115 +124,34 @@ No manual YAML is required for normal use.
 
 ## GUI configuration
 
-### Solar thermal
+### Global options
 
-Fields:
-- Collector temperature entity
-- Solar pump entity
-- Storage / solar tank temperature entity
-
-### Heating circuit
-
-Fields:
-- Heat source type: gas boiler, heat pump, pellet boiler or district heating
-- Outdoor temperature entity
-- Heating flow temperature entity
-- Heating pump entity
-- Heat source status entity
-- Maintenance / service entity
-
-### Domestic hot water
-
-Fields:
-- Hot water temperature entity
-- Buffer temperature entity
-- Circulation pump entity
-- Return temperature entity
-- Hot water demand entity
-
-Additional global options:
 - Title
-- Language (`Auto`, `Deutsch`, `English`)
+- Language: `Auto`, `Deutsch`, `English`
 - Show equipment labels
 - Animate active flow lines
 - Animate active status badges
-- Freely configurable labels
-
----
-
-## YAML examples
-
-You do **not** need YAML for standard use, but here are examples.
+- Custom labels for all displayed values
 
 ### Solar thermal
 
-```yaml
-type: custom:pengu-heat-card
-diagram: solar_thermal
-title: Solarthermie
-language: de
-collector_entity: sensor.kollektor_temp
-pump_entity: sensor.solar_pumpe
-storage_entity: sensor.pufferspeicher_solar
-show_labels: false
-```
+Typical entities:
+
+- Collector temperature
+- Solar pump state or pump speed
+- Solar storage / buffer temperature
 
 ### Heating circuit
 
-```yaml
-type: custom:pengu-heat-card
-diagram: heating_circuit
-title: Heizkreis 1
-language: de
-outside_entity: sensor.aussentemperatur
-flow_entity: sensor.hk1_vorlauf
-pump_entity: sensor.hk1_pumpe
-heat_source_type: heat_pump
-burner_entity: binary_sensor.waermepumpe_aktiv
-service_entity: binary_sensor.wartung
-show_labels: false
-```
+Typical entities:
 
-### Domestic hot water
+- Outdoor temperature
+- Heating flow temperature
+- Heating pump state or pump speed
+- Heat source status
+- Maintenance / service status
 
-```yaml
-type: custom:pengu-heat-card
-diagram: hot_water
-title: Warmwasser
-language: de
-hot_water_entity: sensor.warmwasser_temp
-buffer_entity: sensor.puffer_temp
-circulation_pump_entity: switch.zirkulationspumpe
-return_entity: sensor.zirkulation_ruecklauf
-demand_entity: binary_sensor.ww_anforderung
-show_labels: false
-```
-
----
-
-## Repository structure
-
-```text
-pengu-heat-card/
-├─ .github/
-│  └─ workflows/
-│     └─ validate.yml
-├─ assets/
-│  └─ pengu-logo.svg
-├─ dist/
-│  └─ pengu-heat-card.js
-├─ hacs.json
-├─ LICENSE
-├─ package.json
-├─ pengu-heat-card.js
-└─ README.md
-```
-
----
-
-## Heating source options
-
-For the heating circuit diagram you can choose:
+Selectable heat source types:
 
 ```yaml
 heat_source_type: gas
@@ -214,51 +169,147 @@ heat_source_type: pellet
 heat_source_type: district_heating
 ```
 
-The same status entity field is used for the selected heat source. For example it can be a gas burner status, heat pump compressor status, pellet boiler status or district heating valve / transfer station status.
+### Domestic hot water
 
-## Notes
+Typical entities:
 
-- The illustrations are embedded as SVG directly in the card, so no extra image hosting is required.
-- The visual editor is implemented as a custom Lovelace config editor.
-- The card automatically appears in the Lovelace card picker through `window.customCards`.
-- The language can either follow the Home Assistant UI language automatically or be forced to German / English.
-
----
-
-## Publish on GitHub
-
-1. Create a new public GitHub repository, e.g. `pengu-heat-card`
-2. Upload all files from this ZIP
-3. Create a release like `v1.0.0`
-4. Add the repository to HACS as a custom repository
-5. Optional: submit it to the HACS default list later
-
----
-
-## License
-
-MIT
-
-
-## New in v1.2.0
+- Hot water temperature
+- Buffer temperature
+- Circulation pump state
+- Circulation return temperature
+- Hot water demand state
 
 ### Standalone heat source / burner
 
-You can now use a dedicated separate heat-source view:
+Typical entities:
+
+- Heat source status
+- Heating flow temperature
+- Return temperature
+- Maintenance / service status
+
+This is useful when you want a separate card only for a boiler, heat pump, pellet boiler or district heating transfer station.
+
+---
+
+## YAML examples
+
+You do **not** need YAML for standard use, but these examples show the available configuration keys.
+
+### Solar thermal / Solarthermie
+
+```yaml
+type: custom:pengu-heat-card
+diagram: solar_thermal
+title: Solarthermie
+language: de
+collector_entity: sensor.kollektor_temp
+pump_entity: sensor.solar_pumpe
+storage_entity: sensor.pufferspeicher_solar
+show_labels: false
+animate_flow: true
+animate_status: true
+label_collector: Kollektor
+label_solar_pump: Solarpumpe
+label_solar_storage: Solarspeicher
+```
+
+### Heating circuit / Heizkreis
+
+```yaml
+type: custom:pengu-heat-card
+diagram: heating_circuit
+title: Heizkreis 1
+language: de
+heat_source_type: heat_pump
+outside_entity: sensor.aussentemperatur
+flow_entity: sensor.hk1_vorlauf
+pump_entity: sensor.hk1_pumpe
+burner_entity: binary_sensor.waermepumpe_aktiv
+service_entity: binary_sensor.wartung
+show_labels: false
+animate_flow: true
+animate_status: true
+label_heat_source: Wärmepumpe
+label_heating_flow: HK1 Vorlauf
+label_heating_pump: HK1 Pumpe
+```
+
+### Domestic hot water / Warmwasser
+
+```yaml
+type: custom:pengu-heat-card
+diagram: hot_water
+title: Warmwasser
+language: de
+hot_water_entity: sensor.warmwasser_temp
+buffer_entity: sensor.puffer_temp
+circulation_pump_entity: switch.zirkulationspumpe
+return_entity: sensor.zirkulation_ruecklauf
+demand_entity: binary_sensor.ww_anforderung
+show_labels: false
+animate_flow: true
+animate_status: true
+label_hot_water_temp: Warmwasser
+label_buffer: Puffer
+label_circulation_pump: Zirkulationspumpe
+label_circulation_return: Zirk. Rücklauf
+label_demand: WW Anforderung
+```
+
+### Standalone heat source / Wärmeerzeuger separat
 
 ```yaml
 type: custom:pengu-heat-card
 diagram: heat_source_only
 title: Wärmeerzeuger
 language: de
-heat_source_type: heat_pump
+heat_source_type: pellet
 flow_entity: sensor.kessel_vorlauf
 return_entity: sensor.kessel_ruecklauf
-burner_entity: binary_sensor.waermeerzeuger_aktiv
+burner_entity: binary_sensor.pelletkessel_aktiv
 service_entity: binary_sensor.wartung
-label_heat_source: Wärmeerzeuger
-label_heating_flow: Vorlauf
-label_return_flow: Rücklauf
+show_labels: false
 animate_flow: true
 animate_status: true
+label_heat_source: Pelletkessel
+label_heating_flow: Vorlauf
+label_return_flow: Rücklauf
+label_service: Wartung
 ```
+
+---
+
+## Repository structure
+
+```text
+Pengu-Heat-Card/
+├─ .github/
+│  └─ workflows/
+│     └─ validate.yml
+├─ assets/
+│  └─ pengu-logo.svg
+├─ dist/
+│  └─ pengu-heat-card.js
+├─ hacs.json
+├─ LICENSE
+├─ package.json
+├─ pengu-heat-card.js
+└─ README.md
+```
+
+---
+
+## Notes
+
+- The illustrations are embedded as SVG directly in the card.
+- The visual editor is implemented as a custom Lovelace config editor.
+- The card automatically appears in the Lovelace card picker through `window.customCards`.
+- The language can either follow the Home Assistant UI language automatically or be forced to German / English.
+- The same card can be used for CMI, eBUS, Modbus, MQTT, ESPHome or template-based sensors because it only depends on Home Assistant entities.
+
+---
+
+## License
+
+MIT
