@@ -317,3 +317,7 @@ MIT
 ## v1.2.1 Editor Fix
 
 This release fixes a GUI editor issue where Home Assistant state refreshes could re-render the editor while an entity picker was open. Entity selection should now stay stable while searching and choosing entities.
+
+## v1.2.2 Fixes
+
+This release fixes responsive badge placement, restores selected entity values correctly when reopening the GUI editor and removes the version badge from the visible card header.

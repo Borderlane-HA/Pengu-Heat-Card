@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.2
+
+- Fixed responsive value badge positioning. Values no longer slide out of the card on smaller dashboard cards.
+- Fixed saved entity picker values not being shown again when reopening the GUI editor.
+- Removed the version badge from the card header.
+
 ## v1.2.1
 
 - Fixed the GUI editor refresh issue while selecting entities.
