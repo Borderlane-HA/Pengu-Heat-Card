@@ -321,3 +321,7 @@ This release fixes a GUI editor issue where Home Assistant state refreshes could
 ## v1.2.2 Fixes
 
 This release fixes responsive badge placement, restores selected entity values correctly when reopening the GUI editor and removes the version badge from the visible card header.
+
+## v1.2.3 UI Polish
+
+This release makes the value badges smaller and cleaner, with a more compact visual style and lighter spacing.

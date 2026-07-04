@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.3
+
+- Made the value bubbles more compact and visually lighter.
+- Reduced badge width, padding, blur and shadow for a cleaner look.
+- Slightly improved spacing in the solar thermal layout.
+
 ## v1.2.2
 
 - Fixed responsive value badge positioning. Values no longer slide out of the card on smaller dashboard cards.

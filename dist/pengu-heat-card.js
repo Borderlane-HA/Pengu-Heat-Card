@@ -1,4 +1,4 @@
-const PENGU_HEAT_VERSION = "1.2.2";
+const PENGU_HEAT_VERSION = "1.2.3";
 
 const PENGU_HEAT_TRANSLATIONS = {
   en: {
@@ -239,25 +239,25 @@ function styleMap(extra = "") {
     }
     .pill {
       position: absolute;
-      min-width: min(112px, 28vw);
-      max-width: min(180px, 42vw);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.92);
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
-      padding: 8px 10px;
+      min-width: min(96px, 24vw);
+      max-width: min(148px, 34vw);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+      padding: 6px 8px;
       text-align: center;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       transform: translate(-50%, -50%);
       box-sizing: border-box;
     }
     .pill-label {
       display: block;
-      font-size: clamp(0.62rem, 1.5vw, 0.73rem);
+      font-size: clamp(0.56rem, 1.15vw, 0.64rem);
       line-height: 1.1;
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
       color: var(--phc-muted);
       white-space: nowrap;
       overflow: hidden;
@@ -265,7 +265,7 @@ function styleMap(extra = "") {
     }
     .pill-value {
       display: block;
-      font-size: clamp(0.78rem, 2.1vw, 1.02rem);
+      font-size: clamp(0.72rem, 1.65vw, 0.9rem);
       line-height: 1.1;
       font-weight: 800;
       letter-spacing: 0.01em;
@@ -273,12 +273,12 @@ function styleMap(extra = "") {
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .pill.red { background: rgba(255, 242, 242, 0.96); border-color: rgba(239, 68, 68, 0.18); }
-    .pill.blue { background: rgba(238, 246, 255, 0.96); border-color: rgba(59, 130, 246, 0.18); }
-    .pill.orange { background: rgba(255, 247, 237, 0.96); border-color: rgba(249, 115, 22, 0.18); }
-    .pill.green { background: rgba(239, 252, 244, 0.96); border-color: rgba(34, 197, 94, 0.18); }
-    .pill.yellow { background: rgba(255, 251, 234, 0.96); border-color: rgba(245, 158, 11, 0.18); }
-    .pill.gray { background: rgba(248, 250, 252, 0.96); }
+    .pill.red { background: rgba(255, 246, 246, 0.9); border-color: rgba(239, 68, 68, 0.18); }
+    .pill.blue { background: rgba(242, 248, 255, 0.9); border-color: rgba(59, 130, 246, 0.18); }
+    .pill.orange { background: rgba(255, 249, 241, 0.9); border-color: rgba(249, 115, 22, 0.18); }
+    .pill.green { background: rgba(243, 253, 247, 0.9); border-color: rgba(34, 197, 94, 0.18); }
+    .pill.yellow { background: rgba(255, 252, 240, 0.9); border-color: rgba(245, 158, 11, 0.18); }
+    .pill.gray { background: rgba(248, 250, 252, 0.9); }
     .pill.red .pill-value { color: #dc2626; }
     .pill.blue .pill-value { color: #1d4ed8; }
     .pill.orange .pill-value { color: #ea580c; }
@@ -563,9 +563,9 @@ function renderSolarDiagram(hass, config, language) {
   `;
 
   const overlay = `
-    ${pillHtml({ left: "56%", top: "24%", label: collectorLabel, value: collector, tone: getTemperatureTone(hass, config.collector_entity) })}
-    ${pillHtml({ left: "49%", top: "76%", width: "30%", label: pumpLabel, value: pump, tone: pumpActive ? "green" : "gray", valueClass: getStatusClass(pumpActive, animateStatus, "demand") })}
-    ${pillHtml({ left: "78%", top: "25%", label: storageLabel, value: storage, tone: getTemperatureTone(hass, config.storage_entity) })}
+    ${pillHtml({ left: "52%", top: "24%", label: collectorLabel, value: collector, tone: getTemperatureTone(hass, config.collector_entity) })}
+    ${pillHtml({ left: "49%", top: "76%", width: "24%", label: pumpLabel, value: pump, tone: pumpActive ? "green" : "gray", valueClass: getStatusClass(pumpActive, animateStatus, "demand") })}
+    ${pillHtml({ left: "74%", top: "25%", label: storageLabel, value: storage, tone: getTemperatureTone(hass, config.storage_entity) })}
     ${labelHtml(showLabels, collectorLabel, "18%", "33%", "22%")}
     ${labelHtml(showLabels, pumpLabel, "48%", "67%", "24%")}
     ${labelHtml(showLabels, storageLabel, "78%", "72%", "25%")}
@@ -713,8 +713,8 @@ function renderHeatingDiagram(hass, config, language) {
     ${pillHtml({ left: "25%", top: "15%", label: outsideLabel, value: outside, tone: getTemperatureTone(hass, config.outside_entity) })}
     ${pillHtml({ left: "78%", top: "18%", label: flowLabel, value: flow, tone: getTemperatureTone(hass, config.flow_entity) })}
     ${pillHtml({ left: "51%", top: "62%", width: "28%", label: pumpLabel, value: pump, tone: pumpActive ? "green" : "gray", valueClass: getStatusClass(pumpActive, animateStatus, "demand") })}
-    ${pillHtml({ left: "22%", top: "84%", width: "34%", label: heatSourceLabel, value: sourceStatus, tone: sourceActive ? "green" : "orange", valueClass: getStatusClass(sourceActive, animateStatus) })}
-    ${pillHtml({ left: "78%", top: "84%", width: "30%", label: serviceLabel, value: service, tone: serviceActive ? "yellow" : "green", valueClass: getStatusClass(serviceActive, animateStatus, "warning") })}
+    ${pillHtml({ left: "22%", top: "84%", width: "28%", label: heatSourceLabel, value: sourceStatus, tone: sourceActive ? "green" : "orange", valueClass: getStatusClass(sourceActive, animateStatus) })}
+    ${pillHtml({ left: "78%", top: "84%", width: "24%", label: serviceLabel, value: service, tone: serviceActive ? "yellow" : "green", valueClass: getStatusClass(serviceActive, animateStatus, "warning") })}
     ${labelHtml(showLabels, heatSourceLabel, "19%", "74%", "26%")}
     ${labelHtml(showLabels, pumpLabel, "51%", "53%", "20%")}
     ${labelHtml(showLabels, flowLabel, "82%", "39%", "20%")}
@@ -788,10 +788,10 @@ function renderHotWaterDiagram(hass, config, language) {
 
   const overlay = `
     ${pillHtml({ left: "30%", top: "14%", label: hotWaterLabel, value: hotWater, tone: getTemperatureTone(hass, config.hot_water_entity) })}
-    ${pillHtml({ left: "74%", top: "14%", width: "34%", label: demandLabel, value: demand, tone: demandActive ? "orange" : "gray", valueClass: getStatusClass(demandActive, animateStatus, "demand") })}
-    ${pillHtml({ left: "66%", top: "44%", width: "38%", label: pumpLabel, value: circulationPump, tone: circulationActive ? "green" : "gray", valueClass: getStatusClass(circulationActive, animateStatus, "demand") })}
+    ${pillHtml({ left: "74%", top: "14%", width: "28%", label: demandLabel, value: demand, tone: demandActive ? "orange" : "gray", valueClass: getStatusClass(demandActive, animateStatus, "demand") })}
+    ${pillHtml({ left: "66%", top: "44%", width: "30%", label: pumpLabel, value: circulationPump, tone: circulationActive ? "green" : "gray", valueClass: getStatusClass(circulationActive, animateStatus, "demand") })}
     ${pillHtml({ left: "30%", top: "68%", label: bufferLabel, value: buffer, tone: getTemperatureTone(hass, config.buffer_entity) })}
-    ${pillHtml({ left: "66%", top: "70%", width: "34%", label: returnLabel, value: returnTemp, tone: getTemperatureTone(hass, config.return_entity) })}
+    ${pillHtml({ left: "66%", top: "70%", width: "28%", label: returnLabel, value: returnTemp, tone: getTemperatureTone(hass, config.return_entity) })}
     ${labelHtml(showLabels, hotWaterLabel, "22%", "40%", "22%")}
     ${labelHtml(showLabels, pumpLabel, "70%", "58%", "24%")}
     ${labelHtml(showLabels, returnLabel, "72%", "78%", "24%")}
@@ -843,10 +843,10 @@ function renderHeatSourceOnlyDiagram(hass, config, language) {
   `;
 
   const overlay = `
-    ${pillHtml({ left: "25%", top: "18%", width: "34%", label: sourceLabel, value: sourceStatus, tone: sourceActive ? "green" : "orange", valueClass: getStatusClass(sourceActive, animateStatus) })}
+    ${pillHtml({ left: "25%", top: "18%", width: "28%", label: sourceLabel, value: sourceStatus, tone: sourceActive ? "green" : "orange", valueClass: getStatusClass(sourceActive, animateStatus) })}
     ${pillHtml({ left: "78%", top: "18%", label: flowLabel, value: flow, tone: getTemperatureTone(hass, config.flow_entity) })}
     ${pillHtml({ left: "78%", top: "74%", label: returnLabel, value: ret, tone: getTemperatureTone(hass, config.return_entity) })}
-    ${pillHtml({ left: "50%", top: "84%", width: "30%", label: serviceLabel, value: service, tone: serviceActive ? "yellow" : "green", valueClass: getStatusClass(serviceActive, animateStatus, "warning") })}
+    ${pillHtml({ left: "50%", top: "84%", width: "24%", label: serviceLabel, value: service, tone: serviceActive ? "yellow" : "green", valueClass: getStatusClass(serviceActive, animateStatus, "warning") })}
     ${labelHtml(showLabels, sourceLabel, "20%", "74%", "26%")}
     ${labelHtml(showLabels, flowLabel, "82%", "40%", "20%")}
     ${labelHtml(showLabels, returnLabel, "82%", "74%", "20%")}
