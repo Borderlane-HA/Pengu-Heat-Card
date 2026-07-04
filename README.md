@@ -325,3 +325,7 @@ This release fixes responsive badge placement, restores selected entity values c
 ## v1.2.3 UI Polish
 
 This release makes the value badges smaller and cleaner, with a more compact visual style and lighter spacing.
+
+## v1.3.0 Visual Refresh
+
+This release refreshes the overall UI with cleaner badges, more polished pipe animations and a redesigned solar thermal schematic.

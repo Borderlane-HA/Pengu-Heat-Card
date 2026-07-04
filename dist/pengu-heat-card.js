@@ -1,4 +1,4 @@
-const PENGU_HEAT_VERSION = "1.2.3";
+const PENGU_HEAT_VERSION = "1.3.0";
 
 const PENGU_HEAT_TRANSLATIONS = {
   en: {
@@ -169,7 +169,7 @@ function styleMap(extra = "") {
       --phc-green-soft: #effcf4;
       --phc-yellow-soft: #fffbea;
       --phc-border: color-mix(in srgb, var(--phc-text) 8%, transparent 92%);
-      --phc-shadow: 0 10px 30px rgba(15, 23, 42, 0.10);
+      --phc-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
       --phc-radius: 22px;
       font-family: var(--paper-font-body1_-_font-family, Roboto, "Noto Sans", sans-serif);
       color: var(--phc-text);
@@ -177,7 +177,7 @@ function styleMap(extra = "") {
     .card {
       background: linear-gradient(180deg, color-mix(in srgb, var(--phc-bg) 92%, white 8%) 0%, color-mix(in srgb, var(--phc-bg) 94%, #edf4fb 6%) 100%);
       border-radius: var(--phc-radius);
-      padding: 16px;
+      padding: 18px;
       box-sizing: border-box;
       overflow: hidden;
       min-height: 320px;
@@ -212,12 +212,13 @@ function styleMap(extra = "") {
     }
     .diagram-shell {
       position: relative;
-      border-radius: 20px;
+      border-radius: 22px;
       min-height: 280px;
       background:
-        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.85), transparent 30%),
-        linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.18));
-      border: 1px solid var(--phc-border);
+        radial-gradient(circle at 18% 10%, rgba(255,255,255,0.96), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.72), rgba(248,250,252,0.58));
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
       overflow: hidden;
     }
     .canvas {
@@ -239,46 +240,47 @@ function styleMap(extra = "") {
     }
     .pill {
       position: absolute;
-      min-width: min(96px, 24vw);
-      max-width: min(148px, 34vw);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.88);
-      border: 1px solid rgba(148, 163, 184, 0.14);
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
-      padding: 6px 8px;
+      min-width: min(90px, 22vw);
+      max-width: min(136px, 30vw);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(203, 213, 225, 0.9);
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.05);
+      padding: 6px 8px 7px;
       text-align: center;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
       transform: translate(-50%, -50%);
       box-sizing: border-box;
     }
     .pill-label {
       display: block;
-      font-size: clamp(0.56rem, 1.15vw, 0.64rem);
-      line-height: 1.1;
-      font-weight: 600;
-      margin-bottom: 2px;
-      color: var(--phc-muted);
+      font-size: clamp(0.55rem, 1vw, 0.62rem);
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin-bottom: 3px;
+      color: #64748b;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .pill-value {
       display: block;
-      font-size: clamp(0.72rem, 1.65vw, 0.9rem);
-      line-height: 1.1;
+      font-size: clamp(0.78rem, 1.5vw, 0.96rem);
+      line-height: 1.05;
       font-weight: 800;
       letter-spacing: 0.01em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .pill.red { background: rgba(255, 246, 246, 0.9); border-color: rgba(239, 68, 68, 0.18); }
-    .pill.blue { background: rgba(242, 248, 255, 0.9); border-color: rgba(59, 130, 246, 0.18); }
-    .pill.orange { background: rgba(255, 249, 241, 0.9); border-color: rgba(249, 115, 22, 0.18); }
-    .pill.green { background: rgba(243, 253, 247, 0.9); border-color: rgba(34, 197, 94, 0.18); }
-    .pill.yellow { background: rgba(255, 252, 240, 0.9); border-color: rgba(245, 158, 11, 0.18); }
-    .pill.gray { background: rgba(248, 250, 252, 0.9); }
+    .pill.red { background: linear-gradient(180deg, rgba(255,250,250,0.98), rgba(255,244,244,0.96)); border-color: rgba(254, 202, 202, 0.95); }
+    .pill.blue { background: linear-gradient(180deg, rgba(249,252,255,0.98), rgba(241,246,255,0.96)); border-color: rgba(191, 219, 254, 0.95); }
+    .pill.orange { background: linear-gradient(180deg, rgba(255,252,248,0.98), rgba(255,247,237,0.96)); border-color: rgba(254, 215, 170, 0.95); }
+    .pill.green { background: linear-gradient(180deg, rgba(249,255,251,0.98), rgba(240,253,244,0.96)); border-color: rgba(187, 247, 208, 0.95); }
+    .pill.yellow { background: linear-gradient(180deg, rgba(255,254,250,0.98), rgba(254,252,232,0.96)); border-color: rgba(253, 230, 138, 0.95); }
+    .pill.gray { background: linear-gradient(180deg, rgba(252,252,253,0.98), rgba(248,250,252,0.96)); }
     .pill.red .pill-value { color: #dc2626; }
     .pill.blue .pill-value { color: #1d4ed8; }
     .pill.orange .pill-value { color: #ea580c; }
@@ -287,9 +289,9 @@ function styleMap(extra = "") {
     .pill.gray .pill-value { color: var(--phc-text); }
     .equipment-label {
       position: absolute;
-      font-size: clamp(0.58rem, 1.4vw, 0.72rem);
+      font-size: clamp(0.56rem, 1.1vw, 0.68rem);
       font-weight: 600;
-      color: rgba(71, 85, 105, 0.95);
+      color: rgba(71, 85, 105, 0.88);
       text-shadow: 0 1px 0 rgba(255,255,255,0.9);
       pointer-events: none;
       text-align: center;
@@ -316,6 +318,8 @@ function styleMap(extra = "") {
     .status-ok { color: #15803d !important; }
     .status-active { color: #2563eb !important; }
     .status-idle { color: #64748b !important; }
+    .pipe-red { stroke: var(--phc-line-red); }
+    .pipe-blue { stroke: var(--phc-line-blue); }
     .pulse { animation: phcPulse 1.8s ease-in-out infinite; }
     @keyframes phcPulse {
       0% { transform: scale(1); text-shadow: 0 0 0 rgba(37, 99, 235, 0); }
@@ -323,9 +327,11 @@ function styleMap(extra = "") {
       100% { transform: scale(1); text-shadow: 0 0 0 rgba(37, 99, 235, 0); }
     }
     .pipe-active { opacity: 1; }
-    .pipe-inactive { opacity: 0.38; stroke: #94a3b8 !important; }
-    .pipe-animate { stroke-dasharray: 18 12; animation: phcFlow 1.3s linear infinite; }
-    @keyframes phcFlow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -60; } }
+    .pipe-inactive { opacity: 0.3; stroke: #cbd5e1 !important; }
+    .pipe-animate { stroke-dasharray: 12 12; animation: phcFlow 1.9s linear infinite; }
+    .pipe-red.pipe-active { filter: drop-shadow(0 0 2px rgba(239, 68, 68, 0.25)); }
+    .pipe-blue.pipe-active { filter: drop-shadow(0 0 2px rgba(59, 130, 246, 0.22)); }
+    @keyframes phcFlow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -48; } }
     ${extra}
   `;
 }
@@ -468,14 +474,14 @@ function commonSymbols() {
         <stop offset="0%" stop-color="#1e40af"/>
         <stop offset="100%" stop-color="#2563eb"/>
       </linearGradient>
-      <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
         <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444"/>
       </marker>
-      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
         <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6"/>
       </marker>
       <filter id="shadowSoft" x="-20%" y="-20%" width="140%" height="140%">
-        <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.12"/>
+        <feDropShadow dx="0" dy="2" stdDeviation="3.2" flood-color="#0f172a" flood-opacity="0.14"/>
       </filter>
     </defs>
   `;
@@ -500,75 +506,77 @@ function renderSolarDiagram(hass, config, language) {
     <svg class="diagram-svg" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       ${commonSymbols()}
       <rect x="0" y="0" width="1000" height="700" fill="transparent"/>
+
       <g filter="url(#shadowSoft)">
-        <circle cx="120" cy="112" r="28" fill="#f59e0b"/>
-        <g stroke="#f59e0b" stroke-width="6" stroke-linecap="round">
-          <line x1="120" y1="58" x2="120" y2="28"/>
-          <line x1="120" y1="196" x2="120" y2="166"/>
-          <line x1="66" y1="112" x2="36" y2="112"/>
-          <line x1="204" y1="112" x2="174" y2="112"/>
-          <line x1="82" y1="74" x2="60" y2="52"/>
-          <line x1="158" y1="150" x2="180" y2="172"/>
-          <line x1="82" y1="150" x2="60" y2="172"/>
-          <line x1="158" y1="74" x2="180" y2="52"/>
+        <circle cx="112" cy="120" r="27" fill="#f59e0b"/>
+        <g stroke="#f59e0b" stroke-width="5" stroke-linecap="round">
+          <line x1="112" y1="64" x2="112" y2="36"/>
+          <line x1="112" y1="204" x2="112" y2="176"/>
+          <line x1="56" y1="120" x2="28" y2="120"/>
+          <line x1="196" y1="120" x2="168" y2="120"/>
+          <line x1="72" y1="80" x2="50" y2="58"/>
+          <line x1="152" y1="160" x2="174" y2="182"/>
+          <line x1="72" y1="160" x2="50" y2="182"/>
+          <line x1="152" y1="80" x2="174" y2="58"/>
         </g>
       </g>
-      <g transform="translate(160,148)" filter="url(#shadowSoft)">
-        <polygon points="0,120 300,120 330,150 35,150" fill="#d1d5db" opacity="0.8"/>
-        <polygon points="30,0 260,0 300,120 0,120" fill="url(#phcSolar)" stroke="#475569" stroke-width="6" rx="18"/>
-        <g stroke="#9cc0ff" stroke-width="4" opacity="0.85">
-          <line x1="65" y1="4" x2="28" y2="116"/>
-          <line x1="120" y1="4" x2="82" y2="116"/>
-          <line x1="175" y1="4" x2="137" y2="116"/>
-          <line x1="230" y1="4" x2="191" y2="116"/>
-          <line x1="18" y1="26" x2="275" y2="26"/>
-          <line x1="10" y1="54" x2="283" y2="54"/>
-          <line x1="2" y1="82" x2="291" y2="82"/>
+
+      <g transform="translate(166,184)" filter="url(#shadowSoft)">
+        <polygon points="14,126 276,126 304,146 34,146" fill="#cbd5e1" opacity="0.72"/>
+        <polygon points="38,0 248,0 280,108 6,108" fill="url(#phcSolar)" stroke="#475569" stroke-width="5"/>
+        <g stroke="#8db6ff" stroke-width="3.5" opacity="0.92">
+          <line x1="80" y1="3" x2="48" y2="105"/>
+          <line x1="128" y1="3" x2="96" y2="105"/>
+          <line x1="176" y1="3" x2="144" y2="105"/>
+          <line x1="224" y1="3" x2="192" y2="105"/>
+          <line x1="22" y1="24" x2="262" y2="24"/>
+          <line x1="14" y1="50" x2="270" y2="50"/>
+          <line x1="6" y1="76" x2="278" y2="76"/>
         </g>
       </g>
-      <g transform="translate(405,382)" filter="url(#shadowSoft)">
-        <rect x="0" y="0" rx="22" ry="22" width="110" height="160" fill="#344054"/>
-        <circle cx="30" cy="35" r="18" fill="#fff"/>
-        <circle cx="80" cy="35" r="18" fill="#fff"/>
-        <circle cx="30" cy="35" r="16" fill="none" stroke="#dc2626" stroke-width="4"/>
-        <circle cx="80" cy="35" r="16" fill="none" stroke="#2563eb" stroke-width="4"/>
-        <line x1="30" y1="35" x2="36" y2="24" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
-        <line x1="80" y1="35" x2="72" y2="24" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
-        <circle cx="55" cy="88" r="24" fill="#fff" stroke="#94a3b8" stroke-width="6"/>
-        <polygon points="48,73 69,88 48,103" fill="#475569"/>
-        <rect x="44" y="112" width="22" height="30" rx="10" fill="#1f2937"/>
+
+      <g transform="translate(412,388)" filter="url(#shadowSoft)">
+        <rect x="0" y="0" width="96" height="154" rx="18" fill="#334155"/>
+        <rect x="16" y="14" width="64" height="48" rx="10" fill="#e2e8f0" opacity="0.2"/>
+        <circle cx="28" cy="30" r="13" fill="#ffffff" stroke="#ef4444" stroke-width="3.5"/>
+        <circle cx="68" cy="30" r="13" fill="#ffffff" stroke="#3b82f6" stroke-width="3.5"/>
+        <line x1="28" y1="30" x2="34" y2="22" stroke="#0f172a" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="68" y1="30" x2="61" y2="23" stroke="#0f172a" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="48" cy="86" r="21" fill="#f8fafc" stroke="#94a3b8" stroke-width="5"/>
+        <polygon points="43,72 60,86 43,100" fill="#475569"/>
+        <rect x="40" y="111" width="16" height="27" rx="8" fill="#0f172a"/>
       </g>
-      <g transform="translate(690,232)" filter="url(#shadowSoft)">
-        <ellipse cx="86" cy="20" rx="72" ry="20" fill="#cbd5e1"/>
-        <rect x="14" y="20" width="144" height="240" fill="url(#phcMetal)"/>
-        <rect x="14" y="154" width="144" height="106" fill="url(#phcTankBlue)"/>
-        <ellipse cx="86" cy="260" rx="72" ry="20" fill="#93c5fd"/>
-        <ellipse cx="86" cy="20" rx="72" ry="20" fill="#e2e8f0" opacity="0.9"/>
-        <ellipse cx="86" cy="260" rx="72" ry="20" fill="#60a5fa" opacity="0.85"/>
-        <rect x="10" y="18" width="152" height="244" rx="72" fill="none" stroke="#94a3b8" stroke-width="4"/>
+
+      <g transform="translate(702,210)" filter="url(#shadowSoft)">
+        <ellipse cx="74" cy="16" rx="64" ry="17" fill="#cbd5e1"/>
+        <rect x="10" y="16" width="128" height="252" rx="64" fill="url(#phcMetal)"/>
+        <rect x="10" y="150" width="128" height="118" rx="0" fill="url(#phcTankBlue)" opacity="0.95"/>
+        <rect x="10" y="100" width="128" height="50" fill="rgba(255,255,255,0.28)"/>
+        <ellipse cx="74" cy="268" rx="64" ry="17" fill="#60a5fa" opacity="0.9"/>
+        <rect x="8" y="14" width="132" height="256" rx="64" fill="none" stroke="#94a3b8" stroke-width="4"/>
       </g>
-      <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
-        <path d="M 482 335 L 482 214 L 535 214" class="${redPipe}" marker-end="url(#arrowRed)"/>
-        <path d="M 482 540 L 482 616 L 760 616 L 760 520" class="${bluePipe}" marker-start="url(#arrowBlue)"/>
-        <path d="M 535 214 L 705 214" class="${redPipe}"/>
-        <path d="M 705 214 L 705 372" class="${redPipe}" marker-end="url(#arrowRed)"/>
-        <path d="M 705 480 L 515 480" class="${redPipe}"/>
-        <path d="M 690 520 L 515 520" class="${bluePipe}"/>
+
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="9">
+        <path d="M 460 388 L 460 230 L 548 230 L 700 230" class="${redPipe}"/>
+        <path d="M 700 230 L 700 360" class="${redPipe}" marker-end="url(#arrowRed)"/>
+        <path d="M 700 500 L 524 500 L 460 500 L 460 542" class="${bluePipe}" marker-end="url(#arrowBlue)"/>
+        <path d="M 460 230 L 420 230 L 420 170 L 420 150" class="${redPipe}" marker-end="url(#arrowRed)"/>
       </g>
+
       <g>
-        <circle cx="690" cy="480" r="9" fill="#dbeafe" stroke="#64748b" stroke-width="3"/>
-        <circle cx="690" cy="520" r="9" fill="#dbeafe" stroke="#64748b" stroke-width="3"/>
+        <circle cx="700" cy="500" r="7.5" fill="#f8fafc" stroke="#64748b" stroke-width="2.5"/>
+        <circle cx="700" cy="360" r="7.5" fill="#f8fafc" stroke="#64748b" stroke-width="2.5"/>
       </g>
     </svg>
   `;
 
   const overlay = `
-    ${pillHtml({ left: "52%", top: "24%", label: collectorLabel, value: collector, tone: getTemperatureTone(hass, config.collector_entity) })}
-    ${pillHtml({ left: "49%", top: "76%", width: "24%", label: pumpLabel, value: pump, tone: pumpActive ? "green" : "gray", valueClass: getStatusClass(pumpActive, animateStatus, "demand") })}
-    ${pillHtml({ left: "74%", top: "25%", label: storageLabel, value: storage, tone: getTemperatureTone(hass, config.storage_entity) })}
-    ${labelHtml(showLabels, collectorLabel, "18%", "33%", "22%")}
-    ${labelHtml(showLabels, pumpLabel, "48%", "67%", "24%")}
-    ${labelHtml(showLabels, storageLabel, "78%", "72%", "25%")}
+    ${pillHtml({ left: "56%", top: "16%", width: "19%", label: collectorLabel, value: collector, tone: getTemperatureTone(hass, config.collector_entity) })}
+    ${pillHtml({ left: "77%", top: "16%", width: "20%", label: storageLabel, value: storage, tone: getTemperatureTone(hass, config.storage_entity) })}
+    ${pillHtml({ left: "46%", top: "77%", width: "18%", label: pumpLabel, value: pump, tone: pumpActive ? "green" : "gray", valueClass: getStatusClass(pumpActive, animateStatus, "demand") })}
+    ${labelHtml(showLabels, collectorLabel, "22%", "34%", "18%")}
+    ${labelHtml(showLabels, pumpLabel, "47%", "66%", "18%")}
+    ${labelHtml(showLabels, storageLabel, "79%", "70%", "18%")}
     ${!hasData ? `<div class="empty-note">${localize(language, "preview_note")}</div>` : ""}
   `;
 
@@ -1094,7 +1102,7 @@ class PenguHeatCardEditor extends HTMLElement {
         .panel {
           border: 1px solid rgba(148, 163, 184, 0.25);
           border-radius: 16px;
-          padding: 16px;
+          padding: 18px;
           background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
         }
         .panel-title {
