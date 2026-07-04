@@ -1,4 +1,4 @@
-const PENGU_HEAT_VERSION = "1.2.0";
+const PENGU_HEAT_VERSION = "1.2.1";
 
 const PENGU_HEAT_TRANSLATIONS = {
   en: {
@@ -960,11 +960,22 @@ class PenguHeatCardEditor extends HTMLElement {
 
   set hass(hass) {
     this._hass = hass;
-    this._render();
+
+    // Important: do not re-render the whole editor on every Home Assistant
+    // state update. Re-rendering while an ha-entity-picker dropdown is open
+    // closes the picker and can reset the current selection/search.
+    if (!this.shadowRoot || !this.shadowRoot.hasChildNodes()) {
+      this._render();
+      return;
+    }
+
+    this.shadowRoot.querySelectorAll("ha-entity-picker").forEach((picker) => {
+      picker.hass = this._hass;
+    });
   }
 
   setConfig(config) {
-    this._config = {
+    const nextConfig = {
       diagram: "solar_thermal",
       language: "auto",
       show_labels: false,
@@ -972,7 +983,13 @@ class PenguHeatCardEditor extends HTMLElement {
       animate_status: true,
       ...config,
     };
-    this._render();
+
+    const unchanged = JSON.stringify(this._config) === JSON.stringify(nextConfig);
+    this._config = nextConfig;
+
+    if (!unchanged || !this.shadowRoot || !this.shadowRoot.hasChildNodes()) {
+      this._render();
+    }
   }
 
   _fieldDef(language) {

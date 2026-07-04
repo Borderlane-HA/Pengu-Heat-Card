@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.1
+
+- Fixed the GUI editor refresh issue while selecting entities.
+- The editor no longer fully re-renders on every Home Assistant state update.
+- Entity picker dropdowns now stay open while choosing/searching entities.
+
 ## v1.2.0
 
 - Added richer status colors and optional animations.
