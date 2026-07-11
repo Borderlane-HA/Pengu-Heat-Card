@@ -17,7 +17,7 @@ Repository: `https://github.com/Borderlane-HA/Pengu-Heat-Card`
 Pengu Heat Card is useful for heating systems and controllers such as:
 
 - **Technische Alternative CMI / TA C.M.I.**
-- **UVR16x2 / UVR610 / CAN-EZ / CAN-MTx** style installations exposed through CMI sensors
+- **UVR16x2 / UVR1611 / CAN-EZ / CAN-MTx** style installations exposed through CMI sensors
 - **Solar thermal collectors**
 - **Buffer tanks / thermal storage**
 - **Domestic hot water storage**
