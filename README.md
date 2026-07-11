@@ -10,8 +10,6 @@ Repository: `https://github.com/Borderlane-HA/Pengu-Heat-Card`
 
 > Note for HACS: use the repository URL without `/tree/main`.
 
-![Solar thermal example](screenshots/screen.png)
-
 ---
 
 ## Supported use cases
@@ -19,7 +17,7 @@ Repository: `https://github.com/Borderlane-HA/Pengu-Heat-Card`
 Pengu Heat Card is useful for heating systems and controllers such as:
 
 - **Technische Alternative CMI / TA C.M.I.**
-- **UVR16x2 / UVR611 / CAN-EZ / CAN-MTx** style installations exposed through CMI sensors
+- **UVR16x2 / UVR610 / CAN-EZ / CAN-MTx** style installations exposed through CMI sensors
 - **Solar thermal collectors**
 - **Buffer tanks / thermal storage**
 - **Domestic hot water storage**
@@ -56,8 +54,6 @@ The card does not require a specific integration. If your heating controller pro
 - ✅ More status colors for temperatures and states
 - ✅ Optional animations for active flow lines and active status badges
 - ✅ Freely configurable labels for each diagram
-- ✅ **Drag & drop label positioning** in the GUI editor
-- ✅ Empty / unselected entities are hidden instead of showing `Not configured`
 - ✅ HACS-compatible repository structure
 
 ---
@@ -68,7 +64,7 @@ The card does not require a specific integration. If your heating controller pro
 
 Die Karte eignet sich besonders für Anlagen mit **Technische Alternative CMI / TA C.M.I.**, aber auch für andere Heizungssteuerungen, die über **eBUS**, **Modbus**, **MQTT**, **ESPHome**, REST oder Template-Sensoren in Home Assistant eingebunden sind.
 
-Die Konfiguration erfolgt über den **grafischen Karten-Editor**. YAML ist für die normale Nutzung nicht nötig. Labels können im Editor frei benannt und per **Drag & Drop** in der Vorschau verschoben werden.
+Die Konfiguration erfolgt über den **grafischen Karten-Editor**. YAML ist für die normale Nutzung nicht nötig.
 
 ---
 
@@ -109,18 +105,6 @@ Die Konfiguration erfolgt über den **grafischen Karten-Editor**. YAML ist für 
 
 ---
 
-## Screenshots
-
-Examples from a Home Assistant dashboard:
-
-| Solar thermal | Heating circuit | Domestic hot water |
-| --- | --- | --- |
-| ![Solar thermal example](screenshots/screen1.png) | ![Heating circuit example](screenshots/screen2.png) | ![Domestic hot water example](screenshots/screen3.png) |
-
-> Put your screenshots in the `screenshots/` folder. The example paths above expect `screen1.png`, `screen2.png` and `screen3.png`.
-
----
-
 ## Add the card
 
 After installation, open a dashboard and choose:
@@ -148,30 +132,6 @@ No manual YAML is required for normal use.
 - Animate active flow lines
 - Animate active status badges
 - Custom labels for all displayed values
-- Label positions via drag & drop
-
-### Label positioning
-
-The GUI editor includes a **Label positions** panel. You can drag the value labels directly inside the preview area to fine tune the position of each label.
-
-The positions are saved as percentage values in the card configuration. This keeps the layout usable across different dashboard sizes.
-
-Examples of generated position keys:
-
-```yaml
-label_collector_x: 56
-label_collector_y: 16
-label_solar_storage_x: 77
-label_solar_storage_y: 16
-label_solar_pump_x: 46
-label_solar_pump_y: 77
-```
-
-You normally do not need to edit these values manually. They are written by the GUI editor when you drag a label.
-
-### Empty entities
-
-If an entity is not selected, the related value label is hidden completely. The card will not show `Not configured` placeholders on the dashboard.
 
 ### Solar thermal
 
@@ -252,12 +212,6 @@ animate_status: true
 label_collector: Kollektor
 label_solar_pump: Solarpumpe
 label_solar_storage: Solarspeicher
-label_collector_x: 56
-label_collector_y: 16
-label_solar_storage_x: 77
-label_solar_storage_y: 16
-label_solar_pump_x: 46
-label_solar_pump_y: 77
 ```
 
 ### Heating circuit / Heizkreis
@@ -279,10 +233,6 @@ animate_status: true
 label_heat_source: Wärmepumpe
 label_heating_flow: HK1 Vorlauf
 label_heating_pump: HK1 Pumpe
-label_outdoor_x: 25
-label_outdoor_y: 15
-label_heating_flow_x: 78
-label_heating_flow_y: 18
 ```
 
 ### Domestic hot water / Warmwasser
@@ -341,10 +291,6 @@ Pengu-Heat-Card/
 │  └─ pengu-logo.svg
 ├─ dist/
 │  └─ pengu-heat-card.js
-├─ screenshots/
-│  ├─ screen1.png
-│  ├─ screen2.png
-│  └─ screen3.png
 ├─ hacs.json
 ├─ LICENSE
 ├─ package.json
@@ -361,39 +307,33 @@ Pengu-Heat-Card/
 - The card automatically appears in the Lovelace card picker through `window.customCards`.
 - The language can either follow the Home Assistant UI language automatically or be forced to German / English.
 - The same card can be used for CMI, eBUS, Modbus, MQTT, ESPHome or template-based sensors because it only depends on Home Assistant entities.
-- Label positions are stored as percentage values, for example `label_collector_x` and `label_collector_y`.
-- Unselected entities are not rendered on the card.
-
----
-
-## Changelog
-
-### v1.4.0 Label Positioning
-
-Unselected entities are now hidden from the card instead of showing `Not configured`. The GUI editor includes a **Label positions** panel where labels can be moved via drag and drop. The positions are saved as percentage values in the card configuration.
-
-### v1.3.1 UI Cleanup
-
-This release removes the fixed schema subtitle from the card header and replaces arrow-style flow indicators with cleaner plain pipes and more subtle animations.
-
-### v1.3.0 Visual Refresh
-
-This release refreshes the overall UI with cleaner badges, more polished pipe animations and a redesigned solar thermal schematic.
-
-### v1.2.3 UI Polish
-
-This release makes the value badges smaller and cleaner, with a more compact visual style and lighter spacing.
-
-### v1.2.2 Fixes
-
-This release fixes responsive badge placement, restores selected entity values correctly when reopening the GUI editor and removes the version badge from the visible card header.
-
-### v1.2.1 Editor Fix
-
-This release fixes a GUI editor issue where Home Assistant state refreshes could re-render the editor while an entity picker was open. Entity selection should now stay stable while searching and choosing entities.
 
 ---
 
 ## License
 
 MIT
+
+## v1.2.1 Editor Fix
+
+This release fixes a GUI editor issue where Home Assistant state refreshes could re-render the editor while an entity picker was open. Entity selection should now stay stable while searching and choosing entities.
+
+## v1.2.2 Fixes
+
+This release fixes responsive badge placement, restores selected entity values correctly when reopening the GUI editor and removes the version badge from the visible card header.
+
+## v1.2.3 UI Polish
+
+This release makes the value badges smaller and cleaner, with a more compact visual style and lighter spacing.
+
+## v1.3.0 Visual Refresh
+
+This release refreshes the overall UI with cleaner badges, more polished pipe animations and a redesigned solar thermal schematic.
+
+## v1.3.1 UI Cleanup
+
+This release removes the fixed schema subtitle from the card header and replaces arrow-style flow indicators with cleaner plain pipes and more subtle animations.
+
+## v1.4.0 Label Positioning
+
+Unselected entities are now hidden from the card instead of showing “Not configured”. The GUI editor includes a **Label positions** panel where labels can be moved via drag and drop. The positions are saved as percentage values in the card configuration.

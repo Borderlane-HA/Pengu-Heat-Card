@@ -1,4 +1,4 @@
-const PENGU_HEAT_VERSION = "1.4.0";
+const PENGU_HEAT_VERSION = "1.4.1";
 
 const PENGU_HEAT_TRANSLATIONS = {
   en: {
@@ -256,6 +256,17 @@ function styleMap(extra = "") {
       -webkit-backdrop-filter: blur(4px);
       transform: translate(-50%, -50%);
       box-sizing: border-box;
+      pointer-events: auto;
+      user-select: none;
+    }
+    .pill.clickable {
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+    }
+    .pill.clickable:hover {
+      transform: translate(-50%, -50%) scale(1.025);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+      border-color: rgba(59, 130, 246, 0.45);
     }
     .pill-label {
       display: block;
@@ -438,10 +449,12 @@ function getLabel(config, language, customKey, fallbackKey, fallbackText = null)
   return config?.[customKey] || fallbackText || localize(language, fallbackKey);
 }
 
-function pillHtml({ left, top, width, label, value, tone = "gray", valueClass = "", extraClass = "" }) {
+function pillHtml({ left, top, width, label, value, tone = "gray", valueClass = "", extraClass = "", entityId = "" }) {
+  if (!entityId) return "";
   const style = [`left:${left};`, `top:${top};`, width ? `width:${width};` : ""].join(" ");
+  const safeEntityId = `${entityId}`.replace(/"/g, "&quot;");
   return `
-    <div class="pill ${tone} ${extraClass}" style="${style}">
+    <div class="pill ${tone} ${extraClass} clickable" style="${style}" data-entity-id="${safeEntityId}" title="${safeEntityId}">
       <span class="pill-label">${label}</span>
       <span class="pill-value ${valueClass}">${value}</span>
     </div>
@@ -468,7 +481,7 @@ function getPosition(config, key, defaultLeft, defaultTop, defaultWidth) {
 function positionedPillHtml(config, positionKey, entityId, defaults, options) {
   if (!entityId) return "";
   const position = getPosition(config, positionKey, defaults.left, defaults.top, defaults.width);
-  return pillHtml({ ...options, ...position });
+  return pillHtml({ ...options, ...position, entityId });
 }
 
 function optionalLabelHtml(show, entityId, text, left, top, width) {
@@ -970,6 +983,24 @@ class PenguHeatCard extends HTMLElement {
         </div>
       </ha-card>
     `;
+    this._bindMoreInfo();
+  }
+
+  _bindMoreInfo() {
+    this.shadowRoot.querySelectorAll(".pill[data-entity-id]").forEach((pill) => {
+      pill.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        const entityId = pill.dataset.entityId;
+        if (!entityId) return;
+
+        this.dispatchEvent(new CustomEvent("hass-more-info", {
+          detail: { entityId },
+          bubbles: true,
+          composed: true,
+        }));
+      });
+    });
   }
 }
 

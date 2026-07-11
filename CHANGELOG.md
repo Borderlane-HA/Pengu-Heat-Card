@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.4.1
+
+- Added click support for value labels.
+- Clicking a displayed entity value now opens the Home Assistant more-info dialog, including history where available.
+- Empty/unselected entities remain hidden and are not clickable.
+
 ## v1.4.0
 
 - Empty/unselected entities are now hidden completely instead of showing “Not configured”.
