@@ -10,7 +10,8 @@ Repository: `https://github.com/Borderlane-HA/Pengu-Heat-Card`
 
 > Note for HACS: use the repository URL without `/tree/main`.
 
-![Screen](screenshots/screen.png)`
+![Screen](screenshots/screen.png)
+More Screenshots: https://github.com/Borderlane-HA/Pengu-Heat-Card/tree/main/screenshots
 ---
 
 ## Supported use cases
