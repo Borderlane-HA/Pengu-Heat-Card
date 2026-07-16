@@ -9,7 +9,7 @@ Pengu Heat Card provides animated heating schematics for **solar thermal systems
 Repository: `https://github.com/Borderlane-HA/Pengu-Heat-Card`
 
 > Note for HACS: use the repository URL without `/tree/main`.
-
+![Screen](screenshots/screen.png)`
 ---
 
 ## Supported use cases
