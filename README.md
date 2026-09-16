@@ -1,6 +1,6 @@
 # Pengu Heat Card
 
-![Pengu Heat Card](./assets/pengu-logo.svg)
+<img src="./assets/pengu-logo.svg" alt="Pengu Heat Card" width="100%">
 
 A visual heating-system card for **Home Assistant** with logical heating circuits, a full GUI editor, clickable entities and configurable layouts.
 
@@ -49,6 +49,13 @@ Repository: `https://github.com/Borderlane-HA/Pengu-Heat-Card`
 - ✅ Tap action can be disabled
 - ✅ HACS-compatible repository structure
 - ✅ Entity-aware card suggestions on Home Assistant 2026.6+
+
+---
+
+## What's new in v2.0.1
+
+- Fixed the README hero banner so the subtitle no longer gets clipped on GitHub.
+- Improved the banner aspect ratio for desktop and mobile README layouts.
 
 ---
 

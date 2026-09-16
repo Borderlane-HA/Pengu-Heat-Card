@@ -1,4 +1,4 @@
-const PENGU_HEAT_VERSION = "2.0.0";
+const PENGU_HEAT_VERSION = "2.0.1";
 
 const PENGU_HEAT_TRANSLATIONS = {
   en: {

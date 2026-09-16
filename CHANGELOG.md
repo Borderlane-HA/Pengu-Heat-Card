@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0.1
+
+- Fixed README hero banner clipping on GitHub.
+- Improved banner proportions and responsive README rendering.
+
 ## v2.0.0
 
 Major visual and structural redesign.
