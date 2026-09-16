@@ -1,28 +1,32 @@
 # Changelog
 
+## v2.0.0
+
+Major visual and structural redesign.
+
+- Reduced the card to three focused diagrams: Solar thermal, Heat source / heating circuit, and Domestic hot water.
+- Merged the former Heating circuit and Standalone heat source diagrams into one combined heat-source/heating-loop view.
+- Legacy `heating_circuit` and `heat_source_only` configurations are automatically opened as the new `heat_source` diagram.
+- Rebuilt the solar thermal pipework as a closed collector → storage heat exchanger → pump → collector circuit with no open pipe ends.
+- Reworked domestic hot water as a logical hot-water/circulation loop and added a visible circulation-pump symbol.
+- Removed maintenance/service from the heating view.
+- Moved domestic-hot-water demand to the combined heat-source view where it belongs logically.
+- Added consistent reusable storage-tank graphics across solar thermal and domestic hot water.
+- Added three visual presets: Clean modern, Technical, and Compact.
+- Replaced the old flow animation toggle with Off / Subtle / Normal modes. Subtle is the default.
+- Added per-diagram visibility toggles for optional values.
+- Added clickable equipment graphics in addition to clickable value labels. More-info/history remains the default action.
+- Added a configurable tap action (`more-info` or `none`).
+- Retained drag-and-drop label positioning and added a reset button.
+- Unconfigured entities remain completely hidden.
+- Enabled a live preview in the Home Assistant card picker via `window.customCards.preview`.
+- Added entity-aware card suggestions for heating-related temperature entities on Home Assistant 2026.6+.
+- Updated HACS validation workflow and repository metadata.
+
 ## v1.4.1
 
-- Added click support for value labels.
-- Clicking a displayed entity value now opens the Home Assistant more-info dialog, including history where available.
-- Empty/unselected entities remain hidden and are not clickable.
+- Added click support for value labels and Home Assistant More-info/history.
 
 ## v1.4.0
 
-- Empty/unselected entities are now hidden completely instead of showing “Not configured”.
-- Added drag-and-drop label position editing in the GUI editor.
-- Saved label positions are stored in the card configuration as percentage values.
-- Applied the hide-empty behavior across all four diagrams.
-
-## v1.3.1
-
-- Removed the fixed schema subtitle from the visible card header.
-- Removed visual flow arrows so the pipes are shown more cleanly.
-- Made animated flow lines noticeably more subtle and less distracting.
-
-## v1.3.0
-
-- Reworked the visual style for a cleaner and more professional look.
-- Improved value badge design, spacing and readability.
-- Added explicit red/blue pipe styling and softer animated flow effects.
-- Redesigned the solar thermal diagram graphics and label positions.
-- Improved shadows, shell styling and overall visual balance.
+- Added drag-and-drop label positioning and hid unconfigured entities.

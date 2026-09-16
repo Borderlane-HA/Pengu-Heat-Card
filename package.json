@@ -1,7 +1,7 @@
 {
   "name": "pengu-heat-card",
-  "version": "1.4.1",
-  "description": "Stylish Home Assistant custom card for solar thermal, heating circuit and domestic hot water schematics.",
+  "version": "2.0.0",
+  "description": "Visual Home Assistant heating schematics for solar thermal, heat sources/heating circuits and domestic hot water.",
   "license": "MIT",
   "keywords": [
     "home-assistant",
@@ -9,7 +9,11 @@
     "lovelace",
     "custom-card",
     "heating",
+    "heat-pump",
     "solar-thermal",
-    "warm-water"
+    "domestic-hot-water",
+    "ta-cmi",
+    "ebus",
+    "modbus"
   ]
 }
